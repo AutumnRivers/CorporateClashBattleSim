@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Corporate Clash Battle Simulator</title>
+    </head>
+    <body>
+        <main>
+            <p>Base damage</p>
+            <input type="number" placeholder="Place base damage here" id="baseDmg"/><br/><br/>
+            <input type="checkbox" id="isDrop"/> <label for="isDrop">Is Drop</label><br/>
+            <input type="checkbox" id="isPresDrop"/> <label for="isDrop">Is Pres Drop</label><br/>
+            <input type="checkbox" id="isLured"/> <label for="isDrop">Is Lured</label><br/>
+            <input type="checkbox" id="isPresLured"/> <label for="isDrop">Is Pres Lured</label><br/><br/>
+            <p># of toons</p>
+            <input type="number" placeholder="Amount of toons..." id="amountToons" value="1" max="4"/><br/>
+            <br/>
+            <button type="button" onclick="calculateDamage();">Calculate Damage</button>
+            <br/>
+            <p>The total damage is... <span id="totalDmg">0</span> HP</p>
+        </main>
+    </body>
+    <script src="calc.js"></script>
+</html>

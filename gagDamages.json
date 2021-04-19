@@ -1,0 +1,12 @@
+[
+    {
+        "toonup": {
+            "doesDamage": false
+        }
+    },
+    {
+        "trap": {
+            "doesDamage": true
+        }
+    }
+]

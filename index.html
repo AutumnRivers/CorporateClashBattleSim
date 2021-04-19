@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Toontown: Corporate Clash Battle Simulator (UNOFFICIAL)</title>
+        <link rel="stylesheet" href="./style.css"/>
+    </head>
+    <body>
+        <h1 class="center">Corporate Clash Battle Sim</h1>
+        <!--div class="tableDiv">
+            <table>
+                <tr>
+                    <th></th>
+                    <th>Tier 1</th>
+                    <th>Tier 2</th>
+                    <th>Tier 3</th>
+                    <th>Tier 4</th>
+                    <th>Tier 5</th>
+                    <th>Tier 6</th>
+                    <th>Tier 7</th>
+                    <th>Tier 8</th>
+                </tr>
+                <tr class="center">
+                    <th>Toon-Up</th>
+                    <td><input type="number" min="0" max="4" id="toonupTier1"/></td>
+                    <td><input type="number" min="0" max="4" id="toonupTier2"/></td>
+                    <td><input type="number" min="0" max="4" id="toonupTier3"/></td>
+                    <td><input type="number" min="0" max="4" id="toonupTier4"/></td>
+                    <td><input type="number" min="0" max="4" id="toonupTier5"/></td>
+                    <td><input type="number" min="0" max="4" id="toonupTier6"/></td>
+                    <td><input type="number" min="0" max="4" id="toonupTier7"/></td>
+                    <td><input type="number" min="0" max="4" id="toonupTier8"/></td>
+                </tr>
+                <tr class="center">
+                    <th>Trap</th>
+                    <td><input type="number" min="0" max="4" id="trapTier1"/></td>
+                    <td><input type="number" min="0" max="4" id="trapTier2"/></td>
+                    <td><input type="number" min="0" max="4" id="trapTier3"/></td>
+                    <td><input type="number" min="0" max="4" id="trapTier4"/></td>
+                    <td><input type="number" min="0" max="4" id="trapTier5"/></td>
+                    <td><input type="number" min="0" max="4" id="trapTier6"/></td>
+                    <td><input type="number" min="0" max="4" id="trapTier7"/></td>
+                    <td><input type="number" min="0" max="4" id="trapTier8"/></td>
+                </tr>
+                <tr class="center">
+                    <th>Lure</th>
+                    <td><input type="number" min="0" max="4" id="lureTier1"/></td>
+                    <td><input type="number" min="0" max="4" id="lureTier2"/></td>
+                    <td><input type="number" min="0" max="4" id="lureTier3"/></td>
+                    <td><input type="number" min="0" max="4" id="lureTier4"/></td>
+                    <td><input type="number" min="0" max="4" id="lureTier5"/></td>
+                    <td><input type="number" min="0" max="4" id="lureTier6"/></td>
+                    <td><input type="number" min="0" max="4" id="lureTier7"/></td>
+                    <td><input type="number" min="0" max="4" id="lureTier8"/></td>
+                </tr>
+                <tr class="center">
+                    <th>Sound</th>
+                    <td><input type="number" min="0" max="4" id="soundTier1"/></td>
+                    <td><input type="number" min="0" max="4" id="soundTier2"/></td>
+                    <td><input type="number" min="0" max="4" id="soundTier3"/></td>
+                    <td><input type="number" min="0" max="4" id="soundTier4"/></td>
+                    <td><input type="number" min="0" max="4" id="soundTier5"/></td>
+                    <td><input type="number" min="0" max="4" id="soundTier6"/></td>
+                    <td><input type="number" min="0" max="4" id="soundTier7"/></td>
+                    <td><input type="number" min="0" max="4" id="soundTier8"/></td>
+                </tr>
+            </table>
+        </div-->
+        <div class="tableDiv">
+            <table>
+                <tr class="fullRow">
+                    <th>Simulated Cog 1</th>
+                    <th>Simulated Cog 2</th>
+                    <th>Simulated Cog 3</th>
+                    <th>Simulated Cog 4</th>
+                </tr>
+                <tr class="center">
+                    <td>
+                        <input type="radio" name="lureType1" checked id="isNotLured1"/> <label for="isNotLured1">Not Lured</label><br/>
+                        <input type="radio" name="lureType1" id="isLured1"/> <label for="isLured1">Is Lured</label><br/>
+                        <input type="radio" name="lureType1" id="isPresLured1"/> <label for="isPresLured1">Is Pres Lured</label><br/><br/>
+
+                        <input type="checkbox" id="isSoaked1"/> <label for="isSoaked1">Is Soaked</label><br/><br/>
+
+                        <h3>Damage: <span id="totalDmg1">0</span> HP</h3>
+                    </td>
+                    <td>
+                        <input type="radio" name="lureType2" checked id="isNotLured2"/> <label for="isNotLured2">Not Lured</label><br/>
+                        <input type="radio" name="lureType2" id="isLured2"/> <label for="isLured2">Is Lured</label><br/>
+                        <input type="radio" name="lureType2" id="isPresLured2"/> <label for="isPresLured2">Is Pres Lured</label><br/><br/>
+
+                        <input type="checkbox" id="isSoaked2"/> <label for="isSoaked2">Is Soaked</label><br/><br/>
+
+                        <h3>Damage: <span id="totalDmg2">0</span> HP</h3>
+                    </td>
+                    <td>
+                        <input type="radio" name="lureType3" checked id="isNotLured3"/> <label for="isNotLured3">Not Lured</label><br/>
+                        <input type="radio" name="lureType3" id="isLured3"/> <label for="isLured3">Is Lured</label><br/>
+                        <input type="radio" name="lureType3" id="isPresLured3"/> <label for="isPresLured3">Is Pres Lured</label><br/><br/>
+
+                        <input type="checkbox" id="isSoaked3"/> <label for="isSoaked3">Is Soaked</label><br/><br/>
+
+                        <h3>Damage: <span id="totalDmg3">0</span> HP</h3>
+                    </td>
+                    <td>
+                        <input type="radio" name="lureType4" checked id="isNotLured4"/> <label for="isNotLured4">Not Lured</label><br/>
+                        <input type="radio" name="lureType4" id="isLured4"/> <label for="isLured4">Is Lured</label><br/>
+                        <input type="radio" name="lureType4" id="isPresLured4"/> <label for="isPresLured4">Is Pres Lured</label><br/><br/>
+
+                        <input type="checkbox" id="isSoaked4"/> <label for="isSoaked4">Is Soaked</label><br/><br/>
+
+                        <h3>Damage: <span id="totalDmg4">0</span> HP</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                    <th>Toon 1</th>
+                    <th>Toon 2</th>
+                    <th>Toon 3</th>
+                    <th>Toon 4</th>
+                </tr>
+                <tr class="center toonRow">
+                    <td>
+                        <input type="number" min="0" max="360" placeholder="Gag Damage" id="toon1Dmg"/>
+                        <br/><br/>
+                        <select id="gagType1">
+                            <option value="toonup">Toon-Up</option>
+                            <option value="trap">Trap</option>
+                            <option value="lure">Lure</option>
+                            <option value="sound">Sound</option>
+                            <option value="squirt">Squirt</option>
+                            <option value="zap">Zap</option>
+                            <option value="throw">Throw</option>
+                            <option value="drop">Drop</option>
+                        </select>
+                        <br/><br/>
+                        <select id="cogTarget1">
+                            <option value="cog1">Simulated Cog 1</option>
+                            <option value="cog2">Simulated Cog 2</option>
+                            <option value="cog3">Simulated Cog 3</option>
+                            <option value="cog4">Simulated Cog 4</option>
+                        </select>
+                        <br/><br/>
+                        <input type="checkbox" id="isPres1"/> <label for="isPres1">Is Prestieged</label>
+                    </td>
+                    <td>
+                        <input type="number" min="0" max="360" placeholder="Gag Damage" id="toon2Dmg"/>
+                        <br/>
+                        <br/>
+                        <select id="gagType2">
+                            <option value="toonup">Toon-Up</option>
+                            <option value="trap">Trap</option>
+                            <option value="lure">Lure</option>
+                            <option value="sound">Sound</option>
+                            <option value="squirt">Squirt</option>
+                            <option value="zap">Zap</option>
+                            <option value="throw">Throw</option>
+                            <option value="drop">Drop</option>
+                        </select>
+                        <br/><br/>
+                        <select id="cogTarget2">
+                            <option value="cog1">Simulated Cog 1</option>
+                            <option value="cog2">Simulated Cog 2</option>
+                            <option value="cog3">Simulated Cog 3</option>
+                            <option value="cog4">Simulated Cog 4</option>
+                        </select>
+                        <br/><br/>
+                        <input type="checkbox" id="isPres2"/> <label for="isPres2">Is Prestieged</label>
+                    </td>
+                    <td>
+                        <input type="number" min="0" max="360" placeholder="Gag Damage" id="toon3Dmg"/>
+                        <br/>
+                        <br/>
+                        <select id="gagType3">
+                            <option value="toonup">Toon-Up</option>
+                            <option value="trap">Trap</option>
+                            <option value="lure">Lure</option>
+                            <option value="sound">Sound</option>
+                            <option value="squirt">Squirt</option>
+                            <option value="zap">Zap</option>
+                            <option value="throw">Throw</option>
+                            <option value="drop">Drop</option>
+                        </select>
+                        <br/><br/>
+                        <select id="cogTarget3">
+                            <option value="cog1">Simulated Cog 1</option>
+                            <option value="cog2">Simulated Cog 2</option>
+                            <option value="cog3">Simulated Cog 3</option>
+                            <option value="cog4">Simulated Cog 4</option>
+                        </select>
+                        <br/><br/>
+                        <input type="checkbox" id="isPres3"/> <label for="isPres3">Is Prestieged</label>
+                    </td>
+                    <td>
+                        <input type="number" min="0" max="360" placeholder="Gag Damage" id="toon4Dmg"/>
+                        <br/>
+                        <br/>
+                        <select id="gagType4">
+                            <option value="toonup">Toon-Up</option>
+                            <option value="trap">Trap</option>
+                            <option value="lure">Lure</option>
+                            <option value="sound">Sound</option>
+                            <option value="squirt">Squirt</option>
+                            <option value="zap">Zap</option>
+                            <option value="throw">Throw</option>
+                            <option value="drop">Drop</option>
+                        </select>
+                        <br/><br/>
+                        <select id="cogTarget4">
+                            <option value="cog1">Simulated Cog 1</option>
+                            <option value="cog2">Simulated Cog 2</option>
+                            <option value="cog3">Simulated Cog 3</option>
+                            <option value="cog4">Simulated Cog 4</option>
+                        </select>
+                        <br/><br/>
+                        <input type="checkbox" id="isPres4"/> <label for="isPres4">Is Prestieged</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="center">
+            <button type="button" onclick="calculateDamage();">Calculate Damage, Please!</button>
+            <div class="left" style="margin: auto; width: 300px;">
+                <p>Base Damage: 0</p>
+                <p>Knockback Damage: 0</p>
+                <p>Combo Damage: 0</p>
+            </div>
+        </div>
+    </body>
+    <script src="calc.js"></script>
+</html>
