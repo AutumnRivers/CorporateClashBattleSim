@@ -112,6 +112,8 @@ function calculateDamage() {
                     gagDamage: currentToon.damage,
                     isPres: currentToon.isPres
                 })
+                if(currentToon.gagType === 'lure' && currentToon.isPres && cog1.lureType === 'none') cog1.lureType = 'prestieged';
+                if(currentToon.gagType === 'lure' && !currentToon.isPres && cog1.lureType === 'none') cog1.lureType = 'normal';
                 break;
             case('cog2'):
                 var currentCog = cog2;
@@ -120,6 +122,8 @@ function calculateDamage() {
                     gagDamage: currentToon.damage,
                     isPres: currentToon.isPres
                 })
+                if(currentToon.gagType === 'lure' && currentToon.isPres && cog2.lureType === 'none') cog2.lureType = 'prestieged';
+                if(currentToon.gagType === 'lure' && !currentToon.isPres && cog2.lureType === 'none') cog2.lureType = 'normal';
                 break;
             case('cog3'):
                 var currentCog = cog3;
@@ -128,6 +132,8 @@ function calculateDamage() {
                     gagDamage: currentToon.damage,
                     isPres: currentToon.isPres
                 })
+                if(currentToon.gagType === 'lure' && currentToon.isPres && cog3.lureType === 'none') cog3.lureType = 'prestieged';
+                if(currentToon.gagType === 'lure' && !currentToon.isPres && cog3.lureType === 'none') cog3.lureType = 'normal';
                 break;
             case('cog4'):
                 var currentCog = cog4;
@@ -136,36 +142,56 @@ function calculateDamage() {
                     gagDamage: currentToon.damage,
                     isPres: currentToon.isPres
                 })
+                if(currentToon.gagType === 'lure' && currentToon.isPres && cog4.lureType === 'none') cog4.lureType = 'prestieged';
+                if(currentToon.gagType === 'lure' && !currentToon.isPres && cog4.lureType === 'none') cog4.lureType = 'normal';
                 break;
         }
     }
 
-    console.log(cog1Gags);
-
     findCombos(cog1Gags).then(combos => {
-        console.log(combos);
-        if(cog1.lureType !== 'none') combos[5] = 0;
+        var allGagTypes = cog1Gags.map(gag => {
+            var gagName = '';
+            if(gag.isPres) gagName = 'pres ';
+            gagName += gag.gagType;
+            return gagName;
+        });
+        console.log(allGagTypes);
+
+        if(cog1.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0 && combos[4] === 0)) combos[5] = 0;
+
+        if(cog1.lureType !== 'none') {
+            for(combo in combos) {
+                if(combos[combo] > 0 && !(allGagTypes[combo] == 'toonup' || allGagTypes[combo] == 'lure')) {
+                    combos[combo] = combos[combo] + (combos[combo] * (cog1.lureType === 'prestieged' ? 0.65 : 0.5));
+                    cog1.lureType = 'none';
+                    console.log(cog1.lureType);
+                    break;
+                }
+            }
+        }
+        cog1.combos = combos;
         totalDmg = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
+
         document.querySelector("#totalDmg1").innerHTML = totalDmg;
     });
 
     findCombos(cog2Gags).then(combos => {
-        console.log(combos);
-        if(cog2.lureType !== 'none') combos[5] = 0;
+        if(cog2.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0 && combos[4] === 0)) combos[5] = 0;
+        cog2.combos = combos;
         totalDmg = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
         document.querySelector("#totalDmg2").innerHTML = totalDmg;
     });
 
     findCombos(cog3Gags).then(combos => {
-        console.log(combos);
-        if(cog3.lureType !== 'none') combos[5] = 0;
+        if(cog3.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0 && combos[4] === 0)) combos[5] = 0;
+        cog3.combos = combos;
         totalDmg = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
         document.querySelector("#totalDmg3").innerHTML = totalDmg;
     });
 
     findCombos(cog4Gags).then(combos => {
-        console.log(combos);
-        if(cog4.lureType !== 'none') combos[5] = 0;
+        if(cog4.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0 && combos[4] === 0)) combos[5] = 0;
+        cog4.combos = combos;
         totalDmg = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
         document.querySelector("#totalDmg4").innerHTML = totalDmg;
     });
@@ -239,9 +265,7 @@ async function findCombos(gagArray) {
         dropDmg.length > 1 ?
             allDmg.push(calculateDrop())
         : dropDmg.length == 0 ? allDmg.push(0) : allDmg.push(dropDmg[0])
-    
-        console.log(dropDmg);
+
         return allDmg;
     })
 }
-
