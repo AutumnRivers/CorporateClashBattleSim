@@ -3,6 +3,7 @@
     <head>
         <title>Toontown: Corporate Clash Battle Simulator (UNOFFICIAL)</title>
         <link rel="stylesheet" href="./style.css"/>
+        <meta charset="utf-8"/>
     </head>
     <body>
         <h1 class="center">Corporate Clash Battle Sim</h1>
@@ -222,12 +223,18 @@
 
         <div class="center">
             <button type="button" onclick="calculateDamage();">Calculate Damage, Please!</button>
-            <div class="left" style="margin: auto; width: 300px;">
-                <p>Base Damage: 0</p>
-                <p>Knockback Damage: 0</p>
-                <p>Combo Damage: 0</p>
-            </div>
         </div>
+
+        <footer style="width: 1000px; margin: auto;">
+            <h3>Q: Does this factor in SOS cards?</h3>
+            <p>No. But that might be an option in the future.</p>
+
+            <h3>Q: Why do I have to enter damage manually?</h3>
+            <p>It's easier for everyone this way, trust me.</p>
+
+            <h3>Q: What should I put in for Zap?</h3>
+            <p>If you're hitting a cog that's about to be soaked, put in the base hit * 3 (use a calculator if you need to). If you're hitting a cog that's already soaked then this will show up when you target it in-game. Don't worry about zap jumps - those are calculated on their own.</p>
+        </footer>
     </body>
     <script src="calc.js"></script>
 </html>
