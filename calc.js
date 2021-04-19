@@ -1,4 +1,5 @@
-
+var cog1, cog2, cog3, cog4;
+var toon1, toon2, toon3, toon4;
 
 function calculateDamageOld() {
     var baseDmg, knockbackDmg, totalDmg;
@@ -46,36 +47,40 @@ function calculateDamage() {
 
 
     // Cogs
-    const cog1 = {
+    cog1 = {
         id: 0,
         lureType: document.querySelector("#isLured1").checked ? "normal" : document.querySelector("#isPresLured1").checked ? "prestieged" : "none",
         isSoaked: document.querySelector("#isSoaked1").checked,
+        zapJumped: false,
         damage: 0
     }
 
-    const cog2 = {
+    cog2 = {
         id: 1,
         lureType: document.querySelector("#isLured2").checked ? "normal" : document.querySelector("#isPresLured2").checked ? "prestieged" : "none",
         isSoaked: document.querySelector("#isSoaked2").checked,
+        zapJumped: false,
         damage: 0
     }
 
-    const cog3 = {
+    cog3 = {
         id: 2,
         lureType: document.querySelector("#isLured3").checked ? "normal" : document.querySelector("#isPresLured3").checked ? "prestieged" : "none",
         isSoaked: document.querySelector("#isSoaked3").checked,
+        zapJumped: false,
         damage: 0
     }
 
-    const cog4 = {
+    cog4 = {
         id: 3,
         lureType: document.querySelector("#isLured4").checked ? "normal" : document.querySelector("#isPresLured4").checked ? "prestieged" : "none",
         isSoaked: document.querySelector("#isSoaked4").checked,
+        zapJumped: false,
         damage: 0
     }
 
     // Toons
-    const toon1 = {
+    toon1 = {
         id: 0,
         damage: document.querySelector("#toon1Dmg").valueAsNumber,
         gagType: document.querySelector("#gagType1").options[document.querySelector("#gagType1").selectedIndex].value,
@@ -83,7 +88,7 @@ function calculateDamage() {
         isPres: document.querySelector("#isPres1").checked
     }
 
-    const toon2 = {
+    toon2 = {
         id: 1,
         damage: document.querySelector("#toon2Dmg").valueAsNumber,
         gagType: document.querySelector("#gagType2").options[document.querySelector("#gagType2").selectedIndex].value,
@@ -91,7 +96,7 @@ function calculateDamage() {
         isPres: document.querySelector("#isPres2").checked
     }
 
-    const toon3 = {
+    toon3 = {
         id: 2,
         damage: document.querySelector("#toon3Dmg").valueAsNumber,
         gagType: document.querySelector("#gagType3").options[document.querySelector("#gagType3").selectedIndex].value,
@@ -99,7 +104,7 @@ function calculateDamage() {
         isPres: document.querySelector("#isPres3").checked
     }
     
-    const toon4 = {
+    toon4 = {
         id: 3,
         damage: document.querySelector("#toon4Dmg").valueAsNumber,
         gagType: document.querySelector("#gagType4").options[document.querySelector("#gagType4").selectedIndex].value,
@@ -169,7 +174,7 @@ function calculateDamage() {
 
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog1.lureType = 'none';
 
-        if(cog1.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0 && combos[4] === 0)) combos[5] = 0;
+        if(cog1.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
 
         if(cog1.lureType !== 'none') {
             for(combo in combos) {
@@ -184,7 +189,8 @@ function calculateDamage() {
 
         cog1.combos = combos;
         totalDmg1 = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
-        document.querySelector("#totalDmg1").innerHTML = totalDmg1;
+        cog1.damage += totalDmg1;
+        document.querySelector("#totalDmg1").innerHTML = cog1.damage;
     });
 
     findCombos(cog2Gags, cog2, [cog1, cog2, cog3, cog4], [toon1, toon2, toon3, toon4]).then(combos => {
@@ -197,7 +203,7 @@ function calculateDamage() {
 
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog2.lureType = 'none';
 
-        if(cog2.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0 && combos[4] === 0)) combos[5] = 0;
+        if(cog2.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
 
         if(cog2.lureType !== 'none') {
             for(combo in combos) {
@@ -211,7 +217,8 @@ function calculateDamage() {
 
         cog2.combos = combos;
         totalDmg2 = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
-        document.querySelector("#totalDmg2").innerHTML = totalDmg2;
+        cog2.damage += totalDmg2;
+        document.querySelector("#totalDmg2").innerHTML = cog2.damage;
     });
 
     findCombos(cog3Gags, cog3, [cog1, cog2, cog3, cog4], [toon1, toon2, toon3, toon4]).then(combos => {
@@ -224,7 +231,7 @@ function calculateDamage() {
 
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog3.lureType = 'none';
 
-        if(cog3.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0 && combos[4] === 0)) combos[5] = 0;
+        if(cog3.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
 
         if(cog3.lureType !== 'none') {
             for(combo in combos) {
@@ -238,7 +245,8 @@ function calculateDamage() {
 
         cog3.combos = combos;
         totalDmg3 = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
-        document.querySelector("#totalDmg3").innerHTML = totalDmg3;
+        cog3.damage += totalDmg3;
+        document.querySelector("#totalDmg3").innerHTML = cog3.damage;
     });
 
     findCombos(cog4Gags, cog4, [cog1, cog2, cog3, cog4], [toon1, toon2, toon3, toon4]).then(combos => {
@@ -251,7 +259,7 @@ function calculateDamage() {
 
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog4.lureType = 'none';
 
-        if(cog4.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0 && combos[4] === 0)) combos[5] = 0;
+        if(cog4.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
 
         if(cog4.lureType !== 'none') {
             for(combo in combos) {
@@ -265,7 +273,8 @@ function calculateDamage() {
 
         cog4.combos = combos;
         totalDmg4 = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
-        document.querySelector("#totalDmg4").innerHTML = totalDmg4;
+        cog4.damage += totalDmg4;
+        document.querySelector("#totalDmg4").innerHTML = cog4.damage;
     });
 }
 
@@ -273,7 +282,11 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
     var trapDmg = [];
     var soundDmg = [];
     var squirtDmg = [];
+
     var zapDmg = [];
+    var zapCogs = [];
+    var zapPres = [];
+
     var throwDmg = [];
     var dropDmg = [];
     var dropsIfCombo = [];
@@ -293,7 +306,8 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
                         break;
                     case('zap'):
                         zapDmg.push(gagArray[gag].gagDamage);
-                        calculateZapDamage(cogArray, toonArray, currentCog.id);
+                        zapCogs.push(currentCog);
+                        zapPres.push(gagArray[gag].isPres);
                         break;
                     case('throw'):
                         throwDmg.push(gagArray[gag].gagDamage);
@@ -329,11 +343,56 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
         return totalDropDmg;
     }
 
+    // Zap needs its own function because of jumps and all that
+    async function calculateZapDamage(cogArray, toonArray) {
+        var zapPosition = 0;
+
+        if(zapDmg.length == 0 || zapDmg.reduce((r,c) => r + parseFloat(c), 0) == 0) return;
+        const getZapDmg = new Promise((resolve, reject) => {
+            for(cog in zapCogs) {
+                if(zapCogs[Number(cog)].isSoaked) {
+                    zapPosition = zapCogs[Number(cog)].id;
+                    window['cog' + (zapPosition + 1)].damage += zapDmg[Number(cog)] * 3;
+
+                    if(zapPosition - 1 >= 0 && cogArray[zapPosition - 1]) {
+                        if(cogArray[zapPosition - 1].isSoaked === false) return;
+                        zapPosition -= 1
+                        window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.5 : zapDmg[cog] * 2.25
+
+                        if((zapPosition - 1) >= 0 && cogArray[zapPosition - 1]) {
+                            if(cogArray[zapPosition - 1].isSoaked === false) return;
+                            zapPosition -= 1
+                            window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.25 : zapDmg[cog] * 1.5
+                        } else if((zapPosition - 1) < 0 && cogArray[zapPosition + 1]) {
+                            if(cogArray[zapPosition + 2].isSoaked === false) return;
+                            zapPosition += 2
+                            window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.25 : zapDmg[cog] * 1.5
+                        }
+                    } else if((zapPosition - 1) < 0 && cogArray[zapPosition + 1]) {
+                        if(cogArray[zapPosition + 1].isSoaked === false) return;
+                        zapPosition += 1
+                        window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.5 : zapDmg[cog] * 2.25
+
+                        if(zapPosition + 1 <= 3 && cogArray[zapPosition + 1]) {
+                            if(cogArray[zapPosition + 1].isSoaked === false) return;
+                            zapPosition += 1
+                            window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.25 : zapDmg[cog] * 1.5
+
+                        }
+                    }
+                }
+            }
+            resolve();
+        });
+
+        return await getZapDmg;
+    }
+
     return checkGags.then(() => {
         trapDmg.length > 1 ? allDmg.push(0) : trapDmg.length == 0 ? allDmg.push(0) : allDmg.push(trapDmg[0]);
         soundDmg.length > 1 ? allDmg.push(Math.ceil(soundDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2)) : soundDmg.length == 0 ? allDmg.push(0) : allDmg.push(soundDmg[0])
         squirtDmg.length > 1 ? allDmg.push(Math.ceil(squirtDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2)) : squirtDmg.length == 0 ? allDmg.push(0) : allDmg.push(squirtDmg[0])
-        zapDmg.length > 1 ? allDmg.push(Math.ceil(zapDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2)) : zapDmg.length == 0 ? allDmg.push(0) : allDmg.push(zapDmg[0])
+        zapDmg.length > 0 ? calculateZapDamage(cogArray, toonArray) : 0;
         throwDmg.length > 1 ? allDmg.push(Math.ceil(throwDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2)) : throwDmg.length == 0 ? allDmg.push(0) : allDmg.push(throwDmg[0])
         dropDmg.length > 1 ?
             allDmg.push(calculateDrop())
@@ -341,11 +400,6 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
 
         return allDmg;
     })
-}
-
-// Zap needs its own function because of jumps and all that
-function calculateZapDamage(cogArray, toonArray, currentCogID) {
-    
 }
 
 console.log('App ready.');
