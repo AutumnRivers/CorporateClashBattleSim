@@ -1,5 +1,13 @@
 var cog1, cog2, cog3, cog4;
 var toon1, toon2, toon3, toon4;
+var cog1zap = 0;
+var cog2zap = 0;
+var cog3zap = 0;
+var cog4zap = 0;
+var cog1zapM = 0.0;
+var cog2zapM = 0.0;
+var cog3zapM = 0.0;
+var cog4zapM = 0.0;
 
 function calculateDamageOld() {
     var baseDmg, knockbackDmg, totalDmg;
@@ -45,6 +53,14 @@ function calculateDamage() {
     var cog3Gags = [];
     var cog4Gags = [];
 
+    cog1zap = 0;
+    cog2zap = 0;
+    cog3zap = 0;
+    cog4zap = 0;
+    cog1zapM = 0.0;
+    cog2zapM = 0.0;
+    cog3zapM = 0.0;
+    cog4zapM = 0.0;
 
     // Cogs
     cog1 = {
@@ -52,6 +68,7 @@ function calculateDamage() {
         lureType: document.querySelector("#isLured1").checked ? "normal" : document.querySelector("#isPresLured1").checked ? "prestieged" : "none",
         isSoaked: document.querySelector("#isSoaked1").checked,
         zapJumped: false,
+        zapped: false,
         damage: 0
     }
 
@@ -60,6 +77,7 @@ function calculateDamage() {
         lureType: document.querySelector("#isLured2").checked ? "normal" : document.querySelector("#isPresLured2").checked ? "prestieged" : "none",
         isSoaked: document.querySelector("#isSoaked2").checked,
         zapJumped: false,
+        zapped: false,
         damage: 0
     }
 
@@ -68,6 +86,7 @@ function calculateDamage() {
         lureType: document.querySelector("#isLured3").checked ? "normal" : document.querySelector("#isPresLured3").checked ? "prestieged" : "none",
         isSoaked: document.querySelector("#isSoaked3").checked,
         zapJumped: false,
+        zapped: false,
         damage: 0
     }
 
@@ -76,6 +95,7 @@ function calculateDamage() {
         lureType: document.querySelector("#isLured4").checked ? "normal" : document.querySelector("#isPresLured4").checked ? "prestieged" : "none",
         isSoaked: document.querySelector("#isSoaked4").checked,
         zapJumped: false,
+        zapped: false,
         damage: 0
     }
 
@@ -172,6 +192,9 @@ function calculateDamage() {
             return gagName;
         });
 
+        cog1.damage = cog1zap * cog1zapM;
+        //if(cog1.zapJumped) cog1.damage = cog1.damage / 2;
+
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog1.lureType = 'none';
 
         if(cog1.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
@@ -201,6 +224,9 @@ function calculateDamage() {
             return gagName;
         });
 
+        cog2.damage = cog2zap * cog2zapM;
+        //if(cog1.zapJumped) cog1.damage = cog2.damage / 2;
+
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog2.lureType = 'none';
 
         if(cog2.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
@@ -229,6 +255,8 @@ function calculateDamage() {
             return gagName;
         });
 
+        cog3.damage = cog3zap * cog3zapM;
+
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog3.lureType = 'none';
 
         if(cog3.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
@@ -256,6 +284,8 @@ function calculateDamage() {
             gagName += gag.gagType;
             return gagName;
         });
+
+        cog4.damage = cog4zap * cog4zapM;
 
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog4.lureType = 'none';
 
@@ -352,36 +382,64 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
             for(cog in zapCogs) {
                 if(zapCogs[Number(cog)].isSoaked) {
                     zapPosition = zapCogs[Number(cog)].id;
-                    window['cog' + (zapPosition + 1)].damage += zapDmg[Number(cog)] * 3;
+                    window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[Number(cog)]
 
-                    if(zapPosition - 1 >= 0 && cogArray[zapPosition - 1]) {
-                        if(cogArray[zapPosition - 1].isSoaked === false) return;
-                        zapPosition -= 1
-                        window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.5 : zapDmg[cog] * 2.25
-
-                        if((zapPosition - 1) >= 0 && cogArray[zapPosition - 1]) {
-                            if(cogArray[zapPosition - 1].isSoaked === false) return;
+                    if(zapCogs[Number(cog)].zapped == false) {
+                        window['cog' + (zapPosition + 1) + 'zapM'] += 3;
+                        window['cog' + (zapPosition + 1)].zapped = true;
+    
+                        // Go left
+                        if(zapPosition - 1 >= 0 && cogArray[zapPosition - 1]) {
+                            if(cogArray[zapPosition - 1].isSoaked === false || cogArray[zapPosition - 1].zapJumped) return;
                             zapPosition -= 1
-                            window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.25 : zapDmg[cog] * 1.5
+                            if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
+                            window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.5 : 2.25;
+                            window['cog' + (zapPosition + 1)].zapJumped = true;
+    
+                            if((zapPosition - 1) >= 0 && cogArray[zapPosition - 1]) {
+
+                                if(cogArray[zapPosition - 1].isSoaked === false) return;
+                                if(cogArray[zapPosition - 1].zapJumped) {
+                                    if(cogArray[zapPosition + 2].isSoaked === false || cogArray[zapPosition + 2].zapJumped) return;
+                                    zapPosition += 2
+                                    if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
+                                    window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.25 : 1.5;
+                                    window['cog' + (zapPosition + 1)].zapJumped = true;
+                                }
+
+                                zapPosition -= 1
+                                if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
+                                window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.25 : 1.5;
+                                window['cog' + (zapPosition + 1)].zapJumped = true;
+    
+                            } else if((zapPosition - 1) < 0 && cogArray[zapPosition + 1]) {
+                                if(cogArray[zapPosition + 2].isSoaked === false || cogArray[zapPosition + 2].zapJumped) return;
+                                zapPosition += 2
+                                if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
+                                window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.25 : 1.5;
+                                window['cog' + (zapPosition + 1)].zapJumped = true;
+                            }
+                        // Go right
                         } else if((zapPosition - 1) < 0 && cogArray[zapPosition + 1]) {
-                            if(cogArray[zapPosition + 2].isSoaked === false) return;
-                            zapPosition += 2
-                            window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.25 : zapDmg[cog] * 1.5
-                        }
-                    } else if((zapPosition - 1) < 0 && cogArray[zapPosition + 1]) {
-                        if(cogArray[zapPosition + 1].isSoaked === false) return;
-                        zapPosition += 1
-                        window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.5 : zapDmg[cog] * 2.25
-
-                        if(zapPosition + 1 <= 3 && cogArray[zapPosition + 1]) {
-                            if(cogArray[zapPosition + 1].isSoaked === false) return;
+                            if(cogArray[zapPosition + 1].isSoaked === false || cogArray[zapPosition + 1].zapJumped) return;
                             zapPosition += 1
-                            window['cog' + (zapPosition + 1)].damage += zapPres[zapPosition] === true ? zapDmg[cog] * 2.25 : zapDmg[cog] * 1.5
-
+                            if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
+                            window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.5 : 2.25;
+                            window['cog' + (zapPosition + 1)].zapJumped = true;
+    
+                            if(zapPosition + 1 <= 3 && cogArray[zapPosition + 1]) {
+                                if(cogArray[zapPosition + 1].isSoaked === false || cogArray[zapPosition + 1].zapJumped) return;
+                                zapPosition += 1
+                                if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
+                                window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.25 : 1.5;
+                                window['cog' + (zapPosition + 1)].zapJumped = true;
+    
+                            }
                         }
                     }
                 }
             }
+
             resolve();
         });
 
@@ -396,7 +454,7 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
         throwDmg.length > 1 ? allDmg.push(Math.ceil(throwDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2)) : throwDmg.length == 0 ? allDmg.push(0) : allDmg.push(throwDmg[0])
         dropDmg.length > 1 ?
             allDmg.push(calculateDrop())
-        : dropDmg.length == 0 ? allDmg.push(0) : allDmg.push(dropDmg[0])
+        : dropDmg.length == 0 ? allDmg.push(0) : allDmg.push(dropDmg[0]);
 
         return allDmg;
     })
