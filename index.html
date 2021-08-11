@@ -123,51 +123,52 @@
                 </tr>
                 <tr class="center toonRow">
                     <td>
+                        <h4>Gag Damage</h4>
                         <input type="number" min="0" max="360" placeholder="Gag Damage" id="toon1Dmg" value="0"/>
-                        <br/><br/>
+                        <h4>Gag Type</h4>
                         <select id="gagType1">
                             <option value="toonup">Toon-Up</option>
                             <option value="trap">Trap</option>
                             <option value="lure">Lure</option>
                             <option value="sound">Sound</option>
                             <option value="squirt">Squirt</option>
-                            <option value="zap">Zap</option>
+                            <option value="zap" disabled>Zap</option>
                             <option value="throw">Throw</option>
                             <option value="drop">Drop</option>
                         </select>
                         <br/><br/>
+                        <input type="checkbox" id="isPres1"/> <label for="isPres1">Is Prestieged</label>
+                        <h4>Target Cog</h4>
                         <select id="cogTarget1">
                             <option value="cog1">Simulated Cog 1</option>
                             <option value="cog2">Simulated Cog 2</option>
                             <option value="cog3">Simulated Cog 3</option>
                             <option value="cog4">Simulated Cog 4</option>
                         </select>
-                        <br/><br/>
-                        <input type="checkbox" id="isPres1"/> <label for="isPres1">Is Prestieged</label>
                     </td>
                     <td>
+                        <h4>Gag Damage</h4>
                         <input type="number" min="0" max="360" placeholder="Gag Damage" id="toon2Dmg" value="0"/>
-                        <br/>
-                        <br/>
+                        <h4>Gag Type</h4>
                         <select id="gagType2">
                             <option value="toonup">Toon-Up</option>
                             <option value="trap">Trap</option>
                             <option value="lure">Lure</option>
                             <option value="sound">Sound</option>
                             <option value="squirt">Squirt</option>
-                            <option value="zap">Zap</option>
+                            <option value="zap" disabled>Zap</option>
                             <option value="throw">Throw</option>
                             <option value="drop">Drop</option>
                         </select>
                         <br/><br/>
+                        <input type="checkbox" id="isPres2"/> <label for="isPres2">Is Prestieged</label>
+                        <h4>Target Cog</h4>
                         <select id="cogTarget2">
                             <option value="cog1">Simulated Cog 1</option>
                             <option value="cog2">Simulated Cog 2</option>
                             <option value="cog3">Simulated Cog 3</option>
                             <option value="cog4">Simulated Cog 4</option>
                         </select>
-                        <br/><br/>
-                        <input type="checkbox" id="isPres2"/> <label for="isPres2">Is Prestieged</label>
                     </td>
                     <td>
                         <input type="number" min="0" max="360" placeholder="Gag Damage" id="toon3Dmg" value="0"/>
@@ -179,7 +180,7 @@
                             <option value="lure">Lure</option>
                             <option value="sound">Sound</option>
                             <option value="squirt">Squirt</option>
-                            <option value="zap">Zap</option>
+                            <option value="zap" disabled>Zap</option>
                             <option value="throw">Throw</option>
                             <option value="drop">Drop</option>
                         </select>
@@ -203,7 +204,7 @@
                             <option value="lure">Lure</option>
                             <option value="sound">Sound</option>
                             <option value="squirt">Squirt</option>
-                            <!--option value="zap" disabled>Zap</option-->
+                            <option value="zap" disabled>Zap</option>
                             <option value="throw">Throw</option>
                             <option value="drop">Drop</option>
                         </select>
@@ -233,11 +234,12 @@
             <h3>Q: Why do I have to enter damage manually?</h3>
             <p>It's easier for everyone this way, trust me.</p>
 
-            <h3>Q: What should I put in for Zap?</h3>
-            <p>If you're hitting a cog that's about to be soaked, put in the base hit damage. Don't worry about zap jumps - those are calculated on their own.</p>
+            <!--h3>Q: What should I put in for Zap?</h3>
+            <p>If you're hitting a cog that's about to be soaked, put in the base hit damage. Don't worry about zap jumps - those are calculated on their own.</p-->
 
-            <h3>Q: Why is Zap hidden?</h3>
-            <p>Currently, zap jumps are just a nightmare to calculate - thanks for that, Corporate Clash Team, by the way - so they're disabled until I can fix them.</p>
+            <h3>Q: Why is Zap disabled?</h3>
+            <p>Currently, zap jumps are just a nightmare to calculate, so they're disabled until I can fix them.</p>
+            <p>If you would like to help fix them and you know JavaScript, <a href="https://github.com/AutumnRivers/CorporateClashBattleSim">this project is open-source</a>!</p>
         </footer>
     </body>
 </html>

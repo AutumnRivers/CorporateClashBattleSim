@@ -9,6 +9,10 @@ var cog2zapM = 0.0;
 var cog3zapM = 0.0;
 var cog4zapM = 0.0;
 
+function elementsCount(elementToFind, total, number){
+    return total += number==elementToFind;
+}
+
 function calculateDamageOld() {
     var baseDmg, knockbackDmg, totalDmg;
     var comboDmg = 0;
@@ -197,27 +201,32 @@ function calculateDamage() {
 
         if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog1.lureType = 'none';
 
-        if(cog1.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
+        if(allGagTypes.includes('trap')) combos.trapDmg = allGagTypes.reduce(elementsCount.bind(this, 'trap'), 0) >= 2 ? 0 : combos.trapDmg;
 
         if(cog1.lureType !== 'none') {
-            for(combo in combos) {
-                if(combos[combo] > 0 && allGagTypes[combo - 1] !== 'toonup' && allGagTypes[combo - 1]!== 'lure' && allGagTypes[combo - 1] !== 'pres toonup' && allGagTypes[combo - 1]!== 'pres lure' && allGagTypes[combo - 1] !== 'drop' && allGagTypes[combo - 1] !== 'pres drop') {
-                    // if(allGagTypes[combo - 1] !== 'sound' && allGagTypes[combo - 1] !== 'zap' && allGagTypes[combo - 1] !== 'pres sound' && allGagTypes[combo - 1] !== 'zap')
-                    combos[combo] = combos[combo] + (combos[combo] * (cog1.lureType === 'prestieged' ? 0.65 : 0.5));
-                    cog1.lureType = 'none';
-                    break;
-                }
+            if(combos.trapDmg > 0 || combos.soundDmg > 0 || combos.zapDmg > 0) {
+                cog1.lureType = 'none';
+            } else if(combos.squirtDmg > 0) {
+                combos.squirtDmg = Math.ceil(combos.squirtDmg + (combos.squirtDmg * (cog1.lureType === 'prestieged' ? 0.65 : 0.5)));
+                cog1.lureType = 'none';
+            } else if(combos.throwDmg > 0) {
+                combos.throwDmg = Math.ceil(combos.throwDmg + (combos.throwDmg * (cog1.lureType === 'prestieged' ? 0.65 : 0.5)));
+                cog1.lureType = 'none';
+            } else if(combos.dropDmg > 0) {
+                combos.dropDmg = 0;
             }
+            //combos[combo] = combos[combo] + (combos[combo] * (cog1.lureType === 'prestieged' ? 0.65 : 0.5));
+            cog1.lureType = 'none';
         }
 
+        totalDmg1 = combos.trapDmg + combos.soundDmg + combos.squirtDmg + combos.throwDmg + combos.dropDmg;
         cog1.combos = combos;
-        totalDmg1 = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
         cog1.damage += totalDmg1;
         document.querySelector("#totalDmg1").innerHTML = cog1.damage;
     });
 
     findCombos(cog2Gags, cog2, [cog1, cog2, cog3, cog4], [toon1, toon2, toon3, toon4]).then(combos => {
-        var allGagTypes = cog2Gags.map(gag => {
+        var allGagTypes = cog1Gags.map(gag => {
             var gagName = '';
             if(gag.isPres) gagName = 'pres ';
             gagName += gag.gagType;
@@ -225,30 +234,36 @@ function calculateDamage() {
         });
 
         cog2.damage = cog2zap * cog2zapM;
-        //if(cog1.zapJumped) cog1.damage = cog2.damage / 2;
+        //if(cog1.zapJumped) cog1.damage = cog1.damage / 2;
 
-        if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog2.lureType = 'none';
+        if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog1.lureType = 'none';
 
-        if(cog2.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
+        if(allGagTypes.includes('trap')) combos.trapDmg = allGagTypes.reduce(elementsCount.bind(this, 'trap'), 0) >= 2 ? 0 : combos.trapDmg;
 
         if(cog2.lureType !== 'none') {
-            for(combo in combos) {
-                if(combos[combo] > 0 && allGagTypes[combo - 1] !== 'toonup' && allGagTypes[combo - 1]!== 'lure' && allGagTypes[combo - 1] !== 'pres toonup' && allGagTypes[combo - 1]!== 'pres lure' && allGagTypes[combo - 1] !== 'drop' && allGagTypes[combo - 1] !== 'pres drop') {
-                    if(allGagTypes[combo - 1] !== 'sound' && allGagTypes[combo - 1] !== 'zap' && allGagTypes[combo - 1] !== 'pres sound' && allGagTypes[combo - 1] !== 'zap') combos[combo] = combos[combo] + (combos[combo] * (cog2.lureType === 'prestieged' ? 0.65 : 0.5));
-                    cog1.lureType = 'none';
-                    break;
-                }
+            if(combos.trapDmg > 0 || combos.soundDmg > 0 || combos.zapDmg > 0) {
+                cog2.lureType = 'none';
+            } else if(combos.squirtDmg > 0) {
+                combos.squirtDmg = Math.ceil(combos.squirtDmg + (combos.squirtDmg * (cog2.lureType === 'prestieged' ? 0.65 : 0.5)));
+                cog2.lureType = 'none';
+            } else if(combos.throwDmg > 0) {
+                combos.throwDmg = Math.ceil(combos.throwDmg + (combos.throwDmg * (cog2.lureType === 'prestieged' ? 0.65 : 0.5)));
+                cog2.lureType = 'none';
+            } else if(combos.dropDmg > 0) {
+                combos.dropDmg = 0;
             }
+            //combos[combo] = combos[combo] + (combos[combo] * (cog1.lureType === 'prestieged' ? 0.65 : 0.5));
+            cog2.lureType = 'none';
         }
 
+        totalDmg2 = combos.trapDmg + combos.soundDmg + combos.squirtDmg + combos.throwDmg + combos.dropDmg;
         cog2.combos = combos;
-        totalDmg2 = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
         cog2.damage += totalDmg2;
         document.querySelector("#totalDmg2").innerHTML = cog2.damage;
     });
 
     findCombos(cog3Gags, cog3, [cog1, cog2, cog3, cog4], [toon1, toon2, toon3, toon4]).then(combos => {
-        var allGagTypes = cog3Gags.map(gag => {
+        var allGagTypes = cog1Gags.map(gag => {
             var gagName = '';
             if(gag.isPres) gagName = 'pres ';
             gagName += gag.gagType;
@@ -256,29 +271,36 @@ function calculateDamage() {
         });
 
         cog3.damage = cog3zap * cog3zapM;
+        //if(cog1.zapJumped) cog1.damage = cog1.damage / 2;
 
-        if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog3.lureType = 'none';
+        if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog1.lureType = 'none';
 
-        if(cog3.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
+        if(allGagTypes.includes('trap')) combos.trapDmg = allGagTypes.reduce(elementsCount.bind(this, 'trap'), 0) >= 2 ? 0 : combos.trapDmg;
 
         if(cog3.lureType !== 'none') {
-            for(combo in combos) {
-                if(combos[combo] > 0 && allGagTypes[combo - 1] !== 'toonup' && allGagTypes[combo - 1]!== 'lure' && allGagTypes[combo - 1] !== 'pres toonup' && allGagTypes[combo - 1]!== 'pres lure' && allGagTypes[combo - 1] !== 'drop' && allGagTypes[combo - 1] !== 'pres drop') {
-                    if(allGagTypes[combo - 1] !== 'sound' && allGagTypes[combo - 1] !== 'zap' && allGagTypes[combo - 1] !== 'pres sound' && allGagTypes[combo - 1] !== 'zap') combos[combo] = combos[combo] + (combos[combo] * (cog3.lureType === 'prestieged' ? 0.65 : 0.5));
-                    cog1.lureType = 'none';
-                    break;
-                }
+            if(combos.trapDmg > 0 || combos.soundDmg > 0 || combos.zapDmg > 0) {
+                cog3.lureType = 'none';
+            } else if(combos.squirtDmg > 0) {
+                combos.squirtDmg = Math.ceil(combos.squirtDmg + (combos.squirtDmg * (cog3.lureType === 'prestieged' ? 0.65 : 0.5)));
+                cog3.lureType = 'none';
+            } else if(combos.throwDmg > 0) {
+                combos.throwDmg = Math.ceil(combos.throwDmg + (combos.throwDmg * (cog3.lureType === 'prestieged' ? 0.65 : 0.5)));
+                cog3.lureType = 'none';
+            } else if(combos.dropDmg > 0) {
+                combos.dropDmg = 0;
             }
+            //combos[combo] = combos[combo] + (combos[combo] * (cog1.lureType === 'prestieged' ? 0.65 : 0.5));
+            cog3.lureType = 'none';
         }
 
+        totalDmg3 = combos.trapDmg + combos.soundDmg + combos.squirtDmg + combos.throwDmg + combos.dropDmg;
         cog3.combos = combos;
-        totalDmg3 = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
         cog3.damage += totalDmg3;
         document.querySelector("#totalDmg3").innerHTML = cog3.damage;
     });
 
     findCombos(cog4Gags, cog4, [cog1, cog2, cog3, cog4], [toon1, toon2, toon3, toon4]).then(combos => {
-        var allGagTypes = cog4Gags.map(gag => {
+        var allGagTypes = cog1Gags.map(gag => {
             var gagName = '';
             if(gag.isPres) gagName = 'pres ';
             gagName += gag.gagType;
@@ -286,23 +308,30 @@ function calculateDamage() {
         });
 
         cog4.damage = cog4zap * cog4zapM;
+        //if(cog1.zapJumped) cog1.damage = cog1.damage / 2;
 
-        if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog4.lureType = 'none';
+        if(allGagTypes.includes('sound') || allGagTypes.includes('pres sound') || allGagTypes.includes('zap') || allGagTypes.includes('pres zap')) cog1.lureType = 'none';
 
-        if(cog4.lureType !== 'none' && (combos[0] === 0 && combos[1] === 0 && combos[2] === 0 && combos[3] === 0)) combos[4] = 0;
+        if(allGagTypes.includes('trap')) combos.trapDmg = allGagTypes.reduce(elementsCount.bind(this, 'trap'), 0) >= 2 ? 0 : combos.trapDmg;
 
         if(cog4.lureType !== 'none') {
-            for(combo in combos) {
-                if(combos[combo] > 0 && allGagTypes[combo - 1] !== 'toonup' && allGagTypes[combo - 1]!== 'lure' && allGagTypes[combo - 1] !== 'pres toonup' && allGagTypes[combo - 1]!== 'pres lure' && allGagTypes[combo - 1] !== 'drop' && allGagTypes[combo - 1] !== 'pres drop') {
-                    if(allGagTypes[combo - 1] !== 'sound' && allGagTypes[combo - 1] !== 'zap' && allGagTypes[combo - 1] !== 'pres sound' && allGagTypes[combo - 1] !== 'zap') combos[combo] = combos[combo] + (combos[combo] * (cog4.lureType === 'prestieged' ? 0.65 : 0.5));
-                    cog1.lureType = 'none';
-                    break;
-                }
+            if(combos.trapDmg > 0 || combos.soundDmg > 0 || combos.zapDmg > 0) {
+                cog4.lureType = 'none';
+            } else if(combos.squirtDmg > 0) {
+                combos.squirtDmg = Math.ceil(combos.squirtDmg + (combos.squirtDmg * (cog4.lureType === 'prestieged' ? 0.65 : 0.5)));
+                cog4.lureType = 'none';
+            } else if(combos.throwDmg > 0) {
+                combos.throwDmg = Math.ceil(combos.throwDmg + (combos.throwDmg * (cog4.lureType === 'prestieged' ? 0.65 : 0.5)));
+                cog4.lureType = 'none';
+            } else if(combos.dropDmg > 0) {
+                combos.dropDmg = 0;
             }
+            //combos[combo] = combos[combo] + (combos[combo] * (cog1.lureType === 'prestieged' ? 0.65 : 0.5));
+            cog4.lureType = 'none';
         }
 
+        totalDmg4 = combos.trapDmg + combos.soundDmg + combos.squirtDmg + combos.throwDmg + combos.dropDmg;
         cog4.combos = combos;
-        totalDmg4 = Math.ceil(combos.reduce((r,c) => r + parseFloat(c), 0));
         cog4.damage += totalDmg4;
         document.querySelector("#totalDmg4").innerHTML = cog4.damage;
     });
@@ -326,23 +355,29 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
             for(gag in gagArray) {
                 switch(gagArray[gag].gagType) {
                     case('trap'):
+                        if(gagArray[gag].gagDamage == 0) break;
                         trapDmg.push(gagArray[gag].gagDamage);
                         break;
                     case('sound'):
+                        if(gagArray[gag].gagDamage == 0) break;
                         soundDmg.push(gagArray[gag].gagDamage);
                         break;
                     case('squirt'):
+                        if(gagArray[gag].gagDamage == 0) break;
                         squirtDmg.push(gagArray[gag].gagDamage);
                         break;
                     case('zap'):
+                        if(gagArray[gag].gagDamage == 0) break;
                         zapDmg.push(gagArray[gag].gagDamage);
                         zapCogs.push(currentCog);
                         zapPres.push(gagArray[gag].isPres);
                         break;
                     case('throw'):
+                        if(gagArray[gag].gagDamage == 0) break;
                         throwDmg.push(gagArray[gag].gagDamage);
                         break;
                     case('drop'):
+                        if(gagArray[gag].gagDamage == 0) break;
                         dropDmg.push(gagArray[gag].gagDamage);
                         dropsIfCombo.push(gagArray[gag].isPres == true ? 0.15 : 0.1);
                         break;
@@ -463,14 +498,24 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
     }
 
     return checkGags.then(() => {
-        trapDmg.length > 1 ? allDmg.push(0) : trapDmg.length == 0 ? allDmg.push(0) : allDmg.push(trapDmg[0]);
-        soundDmg.length > 1 ? allDmg.push(Math.ceil(soundDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2)) : soundDmg.length == 0 ? allDmg.push(0) : allDmg.push(soundDmg[0])
-        squirtDmg.length > 1 ? allDmg.push(Math.ceil(squirtDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2)) : squirtDmg.length == 0 ? allDmg.push(0) : allDmg.push(squirtDmg[0])
+        // the array era is over for you
+        // I am currently running on pure anger and 40mg of Latuda
+        allDmg = {
+            trapDmg: 0,
+            soundDmg: 0,
+            squirtDmg: 0,
+            throwDmg: 0,
+            dropDmg: 0
+        }
+
+        trapDmg.length > 1 ? allDmg.trapDmg = 0 : trapDmg.length == 0 ? allDmg.trapDmg = 0 : allDmg.trapDmg = trapDmg[0];
+        soundDmg.length > 1 ? allDmg.soundDmg = Math.ceil(soundDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2) : soundDmg.length == 0 ? allDmg.soundDmg = 0 : allDmg.soundDmg = soundDmg[0]
+        squirtDmg.length > 1 ? allDmg.squirtDmg = Math.ceil(squirtDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2) : squirtDmg.length == 0 ? allDmg.squirtDmg = 0 : allDmg.squirtDmg = squirtDmg[0]
         zapDmg.length > 0 ? calculateZapDamage(cogArray, toonArray) : 0;
-        throwDmg.length > 1 ? allDmg.push(Math.ceil(throwDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2)) : throwDmg.length == 0 ? allDmg.push(0) : allDmg.push(throwDmg[0])
+        throwDmg.length > 1 ? allDmg.throwDmg = throwDmg.reduce((r,c) => r + parseFloat(c), 0) * 1.2 : throwDmg.length == 0 ? allDmg.throwDmg = 0 : allDmg.throwDmg = throwDmg[0]
         dropDmg.length > 1 ?
-            allDmg.push(calculateDrop())
-        : dropDmg.length == 0 ? allDmg.push(0) : allDmg.push(dropDmg[0]);
+            allDmg.dropDmg = calculateDrop()
+        : dropDmg.length == 0 ? allDmg.dropDmg = 0 : allDmg.dropDmg = dropDmg[0];
 
         return allDmg;
     })
