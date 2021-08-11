@@ -380,22 +380,37 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
         if(zapDmg.length == 0 || zapDmg.reduce((r,c) => r + parseFloat(c), 0) == 0) return;
         const getZapDmg = new Promise((resolve, reject) => {
             for(cog in zapCogs) {
+                // If the cog is soaked, continue
                 if(zapCogs[Number(cog)].isSoaked) {
+                    // Get the position of the current cog to zap
                     zapPosition = zapCogs[Number(cog)].id;
+                    // Add base zap damage to the cog
                     window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[Number(cog)]
 
+                    // If the cog hasn't been zapped, zap it
                     if(zapCogs[Number(cog)].zapped == false) {
-                        window['cog' + (zapPosition + 1) + 'zapM'] += 3;
+                        // I genuinely don't remember what this does but I'm afraid to remove it
+                        // EDIT: YOU FOOL THIS IS THE ZAP MULTIPLIER
+                        window['cog' + (zapPosition + 1) + 'zapM'] = 3;
+                        // Cog has been zapped
                         window['cog' + (zapPosition + 1)].zapped = true;
     
                         // Go left
                         if(zapPosition - 1 >= 0 && cogArray[zapPosition - 1]) {
+                            // If a cog isn't soaked or it's already been jumped, skip it
                             if(cogArray[zapPosition - 1].isSoaked === false || cogArray[zapPosition - 1].zapJumped) return;
+                            // You might think "why are you subtracting if you're just gonna add one later on anyway" and you'd be right,
+                            // there is no more to that. I'm not redoing this because, to be honest, I just don't want to
+                            // This code is leaving a mental scar in me, fuck zapping
                             zapPosition -= 1
+                            // If the cog hasn't been zapped, zap it and add damage
                             if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
-                            window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.5 : 2.25;
+                            // If the cog hasn't had a multiplier added to it yet, add it
+                            if(window['cog' + (zapPosition + 1) + 'zapM'] === 0) window['cog' + (zapPosition + 1) + 'zapM'] = zapPres[zapPosition] === true ? 2.5 : 2.25;
+                            // Cog has been zap jumped
                             window['cog' + (zapPosition + 1)].zapJumped = true;
     
+                            // Go left
                             if((zapPosition - 1) >= 0 && cogArray[zapPosition - 1]) {
 
                                 if(cogArray[zapPosition - 1].isSoaked === false) return;
@@ -403,20 +418,21 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
                                     if(cogArray[zapPosition + 2].isSoaked === false || cogArray[zapPosition + 2].zapJumped) return;
                                     zapPosition += 2
                                     if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
-                                    window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.25 : 1.5;
+                                    if(window['cog' + (zapPosition + 1) + 'zapM'] === 0) window['cog' + (zapPosition + 1) + 'zapM'] = zapPres[zapPosition] === true ? 2.25 : 1.5;
                                     window['cog' + (zapPosition + 1)].zapJumped = true;
                                 }
 
                                 zapPosition -= 1
                                 if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
-                                window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.25 : 1.5;
+                                if(window['cog' + (zapPosition + 1) + 'zapM'] === 0) window['cog' + (zapPosition + 1) + 'zapM'] = zapPres[zapPosition] === true ? 2.25 : 1.5;
                                 window['cog' + (zapPosition + 1)].zapJumped = true;
     
+                            // Go right two times
                             } else if((zapPosition - 1) < 0 && cogArray[zapPosition + 1]) {
                                 if(cogArray[zapPosition + 2].isSoaked === false || cogArray[zapPosition + 2].zapJumped) return;
                                 zapPosition += 2
                                 if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
-                                window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.25 : 1.5;
+                                if(window['cog' + (zapPosition + 1) + 'zapM'] === 0) window['cog' + (zapPosition + 1) + 'zapM'] = zapPres[zapPosition] === true ? 2.25 : 1.5;
                                 window['cog' + (zapPosition + 1)].zapJumped = true;
                             }
                         // Go right
@@ -424,14 +440,14 @@ async function findCombos(gagArray, currentCog, cogArray, toonArray) {
                             if(cogArray[zapPosition + 1].isSoaked === false || cogArray[zapPosition + 1].zapJumped) return;
                             zapPosition += 1
                             if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
-                            window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.5 : 2.25;
+                            if(window['cog' + (zapPosition + 1) + 'zapM'] === 0) window['cog' + (zapPosition + 1) + 'zapM'] = zapPres[zapPosition] === true ? 2.5 : 2.25;
                             window['cog' + (zapPosition + 1)].zapJumped = true;
     
                             if(zapPosition + 1 <= 3 && cogArray[zapPosition + 1]) {
                                 if(cogArray[zapPosition + 1].isSoaked === false || cogArray[zapPosition + 1].zapJumped) return;
                                 zapPosition += 1
                                 if(window['cog' + (zapPosition + 1)].zapped == false) window['cog' + (zapPosition + 1) + 'zap'] += zapDmg[cog];
-                                window['cog' + (zapPosition + 1) + 'zapM'] += zapPres[zapPosition] === true ? 2.25 : 1.5;
+                                if(window['cog' + (zapPosition + 1) + 'zapM'] === 0) window['cog' + (zapPosition + 1) + 'zapM'] = zapPres[zapPosition] === true ? 2.25 : 1.5;
                                 window['cog' + (zapPosition + 1)].zapJumped = true;
     
                             }
