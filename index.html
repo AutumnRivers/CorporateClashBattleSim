@@ -6,7 +6,9 @@
         <meta charset="utf-8"/>
     </head>
     <body>
-        <h1 class="center">Corporate Clash Battle Sim</h1>
+        <h1 class="center"><span style="background-color: rgb(75, 94, 136); color: black; font-family: monospace;">&nbsp;CORPORATE </span>&nbsp;<span style="color: red;">CLASH</span> Battle Sim</h1>
+        <p class="center"><a href="https://www.github.com/AutumnRivers/CorporateClashBattleSim" target="_blank">This project is open-source!</a></p>
+        <p class="center"><a href="./changelog.html">View the changelog</a> -- current version is 0.3</p>
         <!--div class="tableDiv">
             <table>
                 <tr>
@@ -81,6 +83,12 @@
                         <input type="radio" name="lureType1" id="isPresLured1"/> <label for="isPresLured1">Is Pres Lured</label><br/><br/>
 
                         <input type="checkbox" id="isSoaked1"/> <label for="isSoaked1">Is Soaked</label><br/><br/>
+                        <!--input type="checkbox" id="laughMarked1" onchange="openOnCheckbox(this, 'mfldiv1');"/> <label for="laughMarked1" title="Cogs labeled as 'Marked For Laugh' take more damage from all attacks. A cog can only be marked for laugh when it is hit with prestige throw.">Marked For Laugh</label><br/><br/>
+                        <div id="mfldiv1">
+                            <input type="range" min="1" max="4" value="1" class="slider" id="mflslider1"/>
+                            <p>Current MFL Amount: <span id="mflamount1">0</span></p>
+                            <p>MFL Multiplier: <span id="mflmulti1">0</span>%</p>
+                        </div-->
 
                         <h3>Damage: <span id="totalDmg1">0</span> HP</h3>
                     </td>
@@ -90,6 +98,12 @@
                         <input type="radio" name="lureType2" id="isPresLured2"/> <label for="isPresLured2">Is Pres Lured</label><br/><br/>
 
                         <input type="checkbox" id="isSoaked2"/> <label for="isSoaked2">Is Soaked</label><br/><br/>
+                        <!--input type="checkbox" id="laughMarked2" onchange="openOnCheckbox(this, 'mfldiv2');"/> <label for="laughMarked2" title="Cogs labeled as 'Marked For Laugh' take more damage from all attacks. A cog can only be marked for laugh when it is hit with prestige throw.">Marked For Laugh</label><br/><br/>
+                        <div id="mfldiv2">
+                            <input type="range" min="1" max="4" value="1" class="slider" id="mflslider2"/>
+                            <p>Current MFL Amount: <span id="mflamount2">0</span></p>
+                            <p>MFL Multiplier: <span id="mflmulti2">0</span>%</p>
+                        </div-->
 
                         <h3>Damage: <span id="totalDmg2">0</span> HP</h3>
                     </td>
@@ -99,6 +113,12 @@
                         <input type="radio" name="lureType3" id="isPresLured3"/> <label for="isPresLured3">Is Pres Lured</label><br/><br/>
 
                         <input type="checkbox" id="isSoaked3"/> <label for="isSoaked3">Is Soaked</label><br/><br/>
+                        <!--input type="checkbox" id="laughMarked3" onchange="openOnCheckbox(this, 'mfldiv3');"/> <label for="laughMarked3" title="Cogs labeled as 'Marked For Laugh' take more damage from all attacks. A cog can only be marked for laugh when it is hit with prestige throw.">Marked For Laugh</label><br/><br/>
+                        <div id="mfldiv3">
+                            <input type="range" min="1" max="4" value="1" class="slider" id="mflslider3"/>
+                            <p>Current MFL Amount: <span id="mflamount3">0</span></p>
+                            <p>MFL Multiplier: <span id="mflmulti3">0</span>%</p>
+                        </div-->
 
                         <h3>Damage: <span id="totalDmg3">0</span> HP</h3>
                     </td>
@@ -108,12 +128,24 @@
                         <input type="radio" name="lureType4" id="isPresLured4"/> <label for="isPresLured4">Is Pres Lured</label><br/><br/>
 
                         <input type="checkbox" id="isSoaked4"/> <label for="isSoaked4">Is Soaked</label><br/><br/>
+                        <!--input type="checkbox" id="laughMarked4" onchange="openOnCheckbox(this, 'mfldiv4');"/> <label for="laughMarked4" title="Cogs labeled as 'Marked For Laugh' take more damage from all attacks. A cog can only be marked for laugh when it is hit with prestige throw.">Marked For Laugh</label><br/><br/>
+                        <div id="mfldiv4">
+                            <input type="range" min="1" max="4" value="1" class="slider" id="mflslider4"/>
+                            <p>Current MFL Amount: <span id="mflamount4">0</span></p>
+                            <p>MFL Multiplier: <span id="mflmulti4">0</span>%</p>
+                        </div-->
 
                         <h3>Damage: <span id="totalDmg4">0</span> HP</h3>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">&nbsp;</td>
+                    <td colspan="4" style="border: 1px solid transparent;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border: 1px solid transparent;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="border-left: 1px solid transparent; border-right: 1px solid transparent;">&nbsp;</td>
                 </tr>
                 <tr>
                     <th>Toon 1</th>
@@ -132,7 +164,7 @@
                             <option value="lure">Lure</option>
                             <option value="sound">Sound</option>
                             <option value="squirt">Squirt</option>
-                            <option value="zap" disabled>Zap</option>
+                            <option value="zap">Zap</option>
                             <option value="throw">Throw</option>
                             <option value="drop">Drop</option>
                         </select>
@@ -156,7 +188,7 @@
                             <option value="lure">Lure</option>
                             <option value="sound">Sound</option>
                             <option value="squirt">Squirt</option>
-                            <option value="zap" disabled>Zap</option>
+                            <option value="zap">Zap</option>
                             <option value="throw">Throw</option>
                             <option value="drop">Drop</option>
                         </select>
@@ -180,7 +212,7 @@
                             <option value="lure">Lure</option>
                             <option value="sound">Sound</option>
                             <option value="squirt">Squirt</option>
-                            <option value="zap" disabled>Zap</option>
+                            <option value="zap">Zap</option>
                             <option value="throw">Throw</option>
                             <option value="drop">Drop</option>
                         </select>
@@ -204,7 +236,7 @@
                             <option value="lure">Lure</option>
                             <option value="sound">Sound</option>
                             <option value="squirt">Squirt</option>
-                            <option value="zap" disabled>Zap</option>
+                            <option value="zap">Zap</option>
                             <option value="throw">Throw</option>
                             <option value="drop">Drop</option>
                         </select>
@@ -224,22 +256,23 @@
 
         <div class="center">
             <script src="calc.js"></script>
+            <script src="index.js"></script>
             <button type="button" onclick="calculateDamage();">Calculate Damage, Please!</button>
         </div>
 
-        <footer style="width: 1000px; margin: auto;">
+        <footer style="width: 1000px; margin: auto; font-family: 'Impress BT', 'Comic Sans MS', 'Comic Sans', casual;">
             <h3>Q: Does this factor in SOS cards?</h3>
             <p>No. But that might be an option in the future.</p>
 
             <h3>Q: Why do I have to enter damage manually?</h3>
             <p>It's easier for everyone this way, trust me.</p>
 
-            <!--h3>Q: What should I put in for Zap?</h3>
-            <p>If you're hitting a cog that's about to be soaked, put in the base hit damage. Don't worry about zap jumps - those are calculated on their own.</p-->
+            <h3>Q: What should I put in for Zap?</h3>
+            <p>If you're hitting a cog that's about to be soaked, put in the base hit damage for a dry zap. Don't worry about zap jumps - those are calculated on their own.</p>
+            <p>There'll be an option in the future to not multiply zaps so you can use what Corporate Clash tells you, but for now you'll need to look at its base dry damage.</p>
 
-            <h3>Q: Why is Zap disabled?</h3>
-            <p>Currently, zap jumps are just a nightmare to calculate, so they're disabled until I can fix them.</p>
-            <p>If you would like to help fix them and you know JavaScript, <a href="https://github.com/AutumnRivers/CorporateClashBattleSim">this project is open-source</a>!</p>
+            <!--h3>Q: Does this calculate "Marked For Laugh" for prestige throw?</h3>
+            <p>It does indeed! It should be noted, however, that the status effect resets the next time you calculate damage, unlike Corporate Clash, where it lasts two turns. If you want to keep a "Marked For Laugh" status effect, you can enable it!</p-->
         </footer>
     </body>
 </html>
